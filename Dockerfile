@@ -7,9 +7,10 @@ USER root
 
 # Update image
 RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install -y httpd wget python3-pip traceroute nmap whois curl wget httpd openssh-clients && \
-    wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
-
-RUN tar xvf openshift-client-linux.tar.gz && \
+    
+    
+RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
+    tar xvf openshift-client-linux.tar.gz && \
     cp oc /usr/local/bin && rm -rf oc openshift-client-linux.tar.gz kubectl README.md && \
     oc version && pip3 install --upgrade awscli==1.16.206 s3cmd==2.0.2 python-magic
 
