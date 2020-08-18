@@ -1,14 +1,30 @@
-FROM docker.io/library/ubuntu:latest
-
-LABEL project="OCP testing"
+FROM registry.access.redhat.com/rhel7
+LABEL project="OpenShift Tools"
 LABEL maintainer "andrew.darley@lmco.com"
 
-ENV https_proxy=http://proxy-ics.external.lmco.com:80/
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get -y install traceroute nmap whatweb whois curl wget
+# ENV https_proxy=http://proxy-ics.external.lmco.com:80/
+USER root
+RUN yum -y install deltarpm yum-utils --disablerepo=*-eus-* --disablerepo=*-htb-* *-sjis-*\
+    --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-* --disablerepo=*-rs-* --disablerepo=*-sap-*
+
+RUN yum-config-manager --disable *-eus-* *-htb-* *-ha-* *-rt-* *-lb-* *-rs-* *-sap-* *-sjis* > /dev/null
+
+# Update image
+RUN yum install httpd procps-ng MySQL-python -y
+
+RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install -y httpd wget python3-pip traceroute nmap whois curl wget httpd openssh-clients && \
+    wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
+    tar xvf openshift-client-linux.tar.gz && \
+    cp oc /usr/local/bin && rm -rf oc openshift-client-linux.tar.gz kubectl README.md && \
+    oc version && pip3 install --upgrade awscli==1.16.206 s3cmd==2.0.2 python-magic && \
+    which httpd
 
 
-CMD while true; do /usr/bin/date; /usr/bin/sleep 10; done
+COPY index.html /var/www/html/
 
-
+RUN chmod 755 /var/www/html/
+RUN echo "The Web Server is Running" >> /var/www/html/index.html
 EXPOSE 80
+
+# Start the service
+CMD while true; do date; sleep 10; done
