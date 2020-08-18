@@ -9,7 +9,8 @@ RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install
     wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
     tar xvf openshift-client-linux.tar.gz && \
     cp oc /usr/local/bin && rm -rf oc openshift-client-linux.tar.gz kubectl README.md && \
-    oc version && pip3 install --upgrade awscli==1.16.206 s3cmd==2.0.2 python-magic
+    oc version && pip3 install --upgrade awscli==1.16.206 s3cmd==2.0.2 python-magic && \
+    which httpd
 
 
 COPY index.html /var/www/html/
