@@ -6,7 +6,7 @@ ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 USER root
 
 # Update image
-RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install -y httpd wget python3-pip traceroute nmap whois curl wget httpd openssh-clients && \
+RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install -y httpd wget python3-pip traceroute nmap whois curl wget httpd openssh-clients 
     
     
 RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
