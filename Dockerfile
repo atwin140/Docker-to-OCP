@@ -4,10 +4,11 @@ LABEL maintainer "andrew.darley@lmco.com"
 
 ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 USER root
-RUN yum -y install deltarpm yum-utils 
+RUN yum -y install deltarpm yum-utils --enablerepo=rhel-7-server-rpms
+
 
 # Update image
-RUN yum install httpd procps-ng  -y
+RUN yum install httpd procps-ng MySQL-python -y
 
 RUN yum --setopt=tsflags=nodocs update -y && yum --setopt=tsflags=nodocs install -y httpd wget python3-pip traceroute nmap whois curl wget httpd openssh-clients && \
     wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
