@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/rhel7
 LABEL project="OpenShift Tools"
 LABEL maintainer "andrew.darley@lmco.com"
 
-# ENV https_proxy=http://proxy-ics.external.lmco.com:80/
+ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 USER root
 RUN yum -y install deltarpm yum-utils --disablerepo=*-eus-* --disablerepo=*-htb-* *-sjis-*\
     --disablerepo=*-ha-* --disablerepo=*-rt-* --disablerepo=*-lb-* --disablerepo=*-rs-* --disablerepo=*-sap-*
