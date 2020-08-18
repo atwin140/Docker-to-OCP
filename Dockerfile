@@ -2,7 +2,7 @@ FROM centos
 LABEL project="OpenShift Tools"
 LABEL maintainer "andrew.darley@lmco.com"
 
-# ENV https_proxy=http://proxy-ics.external.lmco.com:80/
+ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 USER root
 
 # Update image
