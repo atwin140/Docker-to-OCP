@@ -6,7 +6,6 @@ ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 USER root
 RUN yum -y install deltarpm yum-utils 
 
-
 # Update image
 RUN yum install httpd procps-ng  -y
 
