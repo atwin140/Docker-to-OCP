@@ -6,11 +6,10 @@ ENV https_proxy=http://proxy-ics.external.lmco.com:80/
 
 
 RUN yum update -y && yum install -y wget python3-pip rsync openssh-clients && \
-    dnf install -y --enablerepo ansible-2.8-for-rhel-8-x86_64-rpms ansible && \
     wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz && \
     tar xvf openshift-client-linux.tar.gz && \
     cp oc /usr/local/bin && rm -rf oc openshift-client-linux.tar.gz kubectl README.md && \
     oc version && pip3 install --upgrade awscli==1.16.206 s3cmd==2.0.2 python-magic
-COPY id_key .
+
 RUN echo "Tools platform for OpenShift - by Andrew Darley"
 
